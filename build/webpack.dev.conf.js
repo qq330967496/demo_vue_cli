@@ -11,7 +11,7 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 })
 
-module.exports = merge(baseWebpackConfig, {
+var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
   },
@@ -24,12 +24,20 @@ module.exports = merge(baseWebpackConfig, {
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),
     new FriendlyErrorsPlugin()
   ]
-})
+});
+
+for(prop in webpackConfig.entry){
+  // 复制html
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      filename: 'module/'+prop+'/'+prop+'.html',
+      template: './src/module/'+prop+'/'+prop+'.html',
+      inject: true,
+      chunks: [prop, "vendor", "manifest"]
+    })
+  );
+}
+
+module.exports = webpackConfig;

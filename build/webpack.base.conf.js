@@ -2,15 +2,31 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var glob = require('glob');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
+// 多入口文件
+function getEntry(){
+  var entrys = {};
+
+  glob.sync('./src/module/**/*.js').forEach(function(name) {
+    // 前缀
+    var name_arr = name.split('/');
+    var entry = name_arr[name_arr.length-1];
+    // 后缀
+    entry = entry.replace(/\.js/, "");
+    entrys[entry] = name;
+
+    console.log(entry+" : "+name);
+
+  });
+  return entrys;
+};
 
 module.exports = {
-  entry: {
-    app: './src/main.js'
-  },
+  entry:getEntry(),
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
