@@ -68,9 +68,16 @@
   </div>
 </template>
 
+<!--scss引入-->
+<style lang="scss">
+  @import '../../assets/scss/style.scss';
+</style>
+
 <script>
-  //css引入方式
-  import '../../assets/css/style.css'
+//css引入
+//  import '../../assets/css/style.css'
+
+
 
   export default {
     name: 'app',
@@ -136,5 +143,4 @@
   }
 </script>
 
-<style>
-</style>
+

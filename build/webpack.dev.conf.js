@@ -41,7 +41,7 @@ for(prop in webpackConfig.entry){
       filename: './'+prop+'.html',
       template: './src/'+prop+'.html',
       inject: true,
-      chunks: [prop]
+      chunks: [prop,'manifest', 'vendor']
     })
   );
 }

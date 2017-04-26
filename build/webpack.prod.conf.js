@@ -124,7 +124,7 @@ for(prop in webpackConfig.entry){
         removeAttributeQuotes: true
       },
       chunksSortMode: 'dependency',
-      chunks: [prop]
+      chunks: [prop,'manifest', 'vendor']//分块传输编码，这里引入js，公共的manifest，vendor
     })
   );
 }
