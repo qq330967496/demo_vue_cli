@@ -123,7 +123,8 @@ for(prop in webpackConfig.entry){
         collapseWhitespace: true,
         removeAttributeQuotes: true
       },
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'dependency',
+      chunks: [prop]
     })
   );
 }

@@ -3,6 +3,7 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var glob = require('glob');
+var webpack = require('webpack');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -37,7 +38,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': resolve('src'),
     }
   },
   module: {
@@ -69,5 +70,12 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  //插件项
+  plugins: [
+    new webpack.ProvidePlugin({
+      '$'   : 'n-zepto',
+      'utils': resolve('src')+"/assets/lib/utils.js",
+    }),
+  ]
 }
