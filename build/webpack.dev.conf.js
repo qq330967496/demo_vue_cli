@@ -3,9 +3,9 @@ var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
+var dirname = __dirname.replace(/\\/g,'/').replace('/build','');
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
@@ -27,17 +27,5 @@ var webpackConfig = merge(baseWebpackConfig, {
     new FriendlyErrorsPlugin()
   ]
 });
-
-for(prop in webpackConfig.entry){
-  // 复制html
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      filename: 'module/'+prop+'/'+prop+'.html',
-      template: './src/module/'+prop+'/'+prop+'.html',
-      inject: true,
-      chunks: [prop, "vendor", "manifest"]
-    })
-  );
-}
 
 module.exports = webpackConfig;

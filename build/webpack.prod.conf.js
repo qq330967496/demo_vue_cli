@@ -5,11 +5,11 @@ var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 var env = config.build.env
+var dirname = __dirname.replace(/\\/g,'/').replace('/build','');
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -99,22 +99,6 @@ if (config.build.productionGzip) {
 if (config.build.bundleAnalyzerReport) {
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
-}
-
-for(prop in webpackConfig.entry){
-  // 复制html
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      filename: 'module/'+prop+'/'+prop+'.html',
-      template: './src/module/'+prop+'/'+prop+'.html',
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: false,
-      },
-      chunks: [prop, "vendor", "manifest"]
-    })
-  )
 }
 
 module.exports = webpackConfig

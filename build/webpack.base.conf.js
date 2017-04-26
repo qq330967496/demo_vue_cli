@@ -3,18 +3,18 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var glob = require('glob');
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+  return path.join(__dirname, '..', dir).replace(/\\/g,'/')
 }
 // 多入口文件
 function getEntry(){
   var entrys = {};
-
-  glob.sync('./src/module/**/*.js').forEach(function(name) {
+  glob.sync(resolve('src')+'/module/**/*.js').forEach(function(name) {
+    name = name.replace(resolve('src/'),'./src/');
     // 前缀
-    var name_arr = name.split('/');
-    var entry = name_arr[name_arr.length-1];
+    var entry = name.replace('./src/','');
     // 后缀
     entry = entry.replace(/\.js/, "");
     entrys[entry] = name;
@@ -25,7 +25,7 @@ function getEntry(){
   return entrys;
 };
 
-module.exports = {
+var webpackConfig = {
   entry:getEntry(),
   output: {
     path: config.build.assetsRoot,
@@ -69,6 +69,21 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
-    ]
-  }
+    ],
+  },
+  plugins:[]
 }
+
+for(prop in webpackConfig.entry){
+  console.log(prop);
+  // 复制html
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      filename:path.resolve(__dirname, '../dist/'+prop+'.html'),
+      template: './src/'+prop+'.html',
+      inject: true,
+    })
+  )
+}
+
+module.exports = webpackConfig;
