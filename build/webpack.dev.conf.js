@@ -35,10 +35,10 @@ var webpackConfig = merge(baseWebpackConfig, {
 });
 
 for(prop in webpackConfig.entry){
-  console.log('[复制html]'+prop);
+  console.log('[复制html]'+'/'+prop+'.html');
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
-      filename: path.resolve(__dirname, '../dist'+prop+'.html'),
+      filename: './'+prop+'.html',
       template: './src/'+prop+'.html',
       inject: true,
     })
