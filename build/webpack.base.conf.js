@@ -2,15 +2,30 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var glob = require('glob');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+// 多入口文件
+function getEntry(){
+  var entrys = {};
+
+  glob.sync('./src/module/**/*.js').forEach(function(name) {
+    var entry = name.replace('./src/module/','').split('/')[0];
+    var prop = 'module/'+entry+'/'+entry;
+    entrys[prop] = name;
+    console.log('[入口]' + prop+" : "+name);
+  });
+  return entrys;
+};
+
 module.exports = {
-  entry: {
-    app: './src/main.js'
-  },
+  // entry: {
+  //   app: './src/main.js'
+  // },
+  entry:getEntry(),
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
