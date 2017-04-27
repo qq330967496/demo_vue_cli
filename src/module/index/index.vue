@@ -19,7 +19,7 @@
     mounted: () => {
       var _this = this;
       _this.msg = '测试111111';
-      console.log(utils.queryString('a'));
+//      console.log(utils.queryString('a'));
     },
     methods: {
       showPrompt: () => {

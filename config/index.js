@@ -51,6 +51,6 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     // 是否开启 cssSourceMap
-    cssSourceMap: false
+    cssSourceMap: false,
   }
 }
