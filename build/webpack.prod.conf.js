@@ -6,11 +6,14 @@ var merge = require('webpack-merge');//合并webpack文件，类似继承
 var baseWebpackConfig = require('./webpack.base.conf');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+// 用于从webpack生成的bundle中提取文本到特定文件中的插件
+// 可以抽取出css，js文件将其与webpack输出的bundle分离
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 
 var env = config.build.env;
 
+// 合并基础的webpack配置
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -19,19 +22,24 @@ var webpackConfig = merge(baseWebpackConfig, {
     })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
+  // 配置webpack的输出
   output: {
+    // 编译输出目录
     path: config.build.assetsRoot,
+    // 编译输出文件名格式
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
+    // 没有指定输出名的文件输出的文件名格式
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
+  // 配置webpack插件
   plugins: [
-    // 定义用插件
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
+    // 定义用插件
     new webpack.DefinePlugin({
       'process.env': env
     }),
 
-    // 丑化js
+    // 丑化压缩js
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -39,14 +47,15 @@ var webpackConfig = merge(baseWebpackConfig, {
       sourceMap: true
     }),
 
-    // 分离css
     // extract css into its own file
+    // 抽离css文件
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')
     }),
-    // 压缩css
+
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
+    // 压缩css
     new OptimizeCSSPlugin({
       cssProcessorOptions: {
         safe: true
@@ -98,6 +107,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   ]
 });
 
+// gzip模式下需要引入compression插件进行压缩
 if (config.build.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin');
 
