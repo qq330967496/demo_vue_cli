@@ -1,21 +1,21 @@
-# demo_vue_cli
+# demo_vue_cli 2.0
 
-> A Vue.js project
+> 基于官方命令行调整的vue框架
 
-## Build Setup
+## 构建命令行
 
 ``` bash
-# install dependencies
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 启动热加载服务器：localhost:8080
 npm run dev
 
-# build for production with minification
+# 生产环境
 npm run build
 
-# build for production and view the bundle analyzer report
+# 生产环境+查看报告
 npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+官方文档见： [guide](http://vuejs-templates.github.io/webpack/) 、 [docs for vue-loader](http://vuejs.github.io/vue-loader).
