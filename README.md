@@ -1,6 +1,9 @@
 # demo_vue_cli 2.0
 
-> 基于官方命令行调整的vue框架
+> 基于vue官方demo改进：
+- webpack支持多入口文件
+- 支持scss
+- 全局引入zepto和自定义utils
 
 ## 构建命令行
 
