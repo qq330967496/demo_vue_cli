@@ -1,0 +1,39 @@
+/*全局变量*/
+$baseFontSize: 40px !default;
+$color_golden_bg: #eabf50;
+$color_golden:#8e4d00;
+
+/*函数*/
+//px转rem
+@function pxToRem($px) {
+  @return $px / $baseFontSize * 1rem;
+}
+
+
+/*混合*/
+//圆角
+@mixin border-radius($val) {
+  -webkit-border-radius:$val;
+  -moz-border-radius:$val;
+  border-radius:$val;
+}
+
+//
+@mixin transform($type,$val...){
+  @if $type == 'rotate' {
+    @include transform_rotate($val);
+  }
+
+  @if $type == 'scale' {
+    scale:$val;
+  }
+}
+
+//兼容旋转
+@mixin transform_rotate($angle){
+  transform:rotate($angle);
+  -ms-transform:rotate($angle); 	/* IE 9 */
+  -moz-transform:rotate($angle); 	/* Firefox */
+  -webkit-transform:rotate($angle); /* Safari 和 Chrome */
+  -o-transform:rotate($angle); 	/* Opera */
+}

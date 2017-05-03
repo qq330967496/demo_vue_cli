@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <img src="../../assets/logo.png">
+    <img src="../../assets/img/logo.png">
     {{msg}}
   </div>
 </template>
 
 <script>
+  //css引入方式
+  import '../../assets/css/style.css'
+
   export default {
     name: 'app',
-    data: function () {
+    data(){
       return {
-        msg: '1'
-      }
+        msg: ''
+      };
+    },
+    mounted: () => {
+      var _this = this;
+      _this.msg = '测试111111';
+//      console.log(utils.queryString('a'));
+    },
+    methods: {
+      showPrompt: () => {
+        utils.prompt('提示框');
+      },
     }
   }
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
 </style>
